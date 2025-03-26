@@ -1,0 +1,277 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "(The model requires ~6 GB and this device has: %@ GB available.)" : {
+
+    },
+    "%@ / %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ / %2$@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "%lld%%" : {
+
+    },
+    "+%lld" : {
+
+    },
+    "⚠️ Running on AI2's servers - not on your device" : {
+
+    },
+    "1.0.0" : {
+
+    },
+    "5-4-3-2-1 Grounding" : {
+
+    },
+    "5-4-3-2-1 Grounding Technique" : {
+
+    },
+    "About" : {
+
+    },
+    "Add Content" : {
+
+    },
+    "allenai.org" : {
+
+    },
+    "API Key" : {
+
+    },
+    "API Key is currently set" : {
+
+    },
+    "API Key Settings" : {
+
+    },
+    "API Settings" : {
+
+    },
+    "Appearance" : {
+
+    },
+    "Attach Photos" : {
+
+    },
+    "Breathing Exercises" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Choose a Breathing Technique" : {
+
+    },
+    "Clear API Key" : {
+
+    },
+    "Crisis Help" : {
+
+    },
+    "Crisis Resources" : {
+
+    },
+    "Dark Mode" : {
+
+    },
+    "Date" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Delete history?" : {
+
+    },
+    "Done" : {
+
+    },
+    "Download Model" : {
+
+    },
+    "Download Model Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To get started, download the latest OLMoE model."
+          }
+        }
+      }
+    },
+    "Downloading..." : {
+
+    },
+    "Emergency Services" : {
+
+    },
+    "Emergency Services (999)" : {
+
+    },
+    "Empty Input Prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message OLMoE"
+          }
+        }
+      }
+    },
+    "Enter API Key" : {
+
+    },
+    "Flush Model" : {
+
+    },
+    "Follow the circle" : {
+
+    },
+    "Grounding Exercise" : {
+
+    },
+    "Guided Breathing" : {
+
+    },
+    "How are you feeling today?" : {
+
+    },
+    "However, you can try using OLMoE at the Ai2 Playground. This option does not download the model file to your device, but instead submits user input to a hosted version of OLMoE to remotely generate responses." : {
+
+    },
+    "Light Mode" : {
+
+    },
+    "Loading model..." : {
+
+    },
+    "Mental Health Support" : {
+
+    },
+    "Message OLMoE" : {
+
+    },
+    "Model is ready to use!" : {
+
+    },
+    "Mood" : {
+
+    },
+    "Mood Distribution" : {
+
+    },
+    "Mood Tracker" : {
+
+    },
+    "NHS Urgent Mental Health" : {
+
+    },
+    "OLMoE can run locally on iPhone 15 Pro/Max, iPhone 16 models, iPad Pro 4th Gen and newer, or iPad Air 5th Gen and newer." : {
+
+    },
+    "On-Device OLMoE Not Available" : {
+
+    },
+    "Please accept the terms to continue" : {
+
+    },
+    "Please scroll to read the full terms" : {
+
+    },
+    "Proceed Anyway" : {
+
+    },
+    "Proceed With Mocked Model" : {
+
+    },
+    "Reset" : {
+
+    },
+    "Reset All Entries" : {
+
+    },
+    "SafeZone App" : {
+
+    },
+    "Samaritans Support" : {
+
+    },
+    "Save" : {
+
+    },
+    "Scroll to view terms" : {
+
+    },
+    "Self-Help Tools" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Start Download" : {
+
+    },
+    "Stop Exercise" : {
+
+    },
+    "Take Photo" : {
+
+    },
+    "The model requires 4.21GB of storage space. Would you like to proceed with the download?" : {
+
+    },
+    "This device does not have the 8GB physical RAM required to run OLMoE locally." : {
+
+    },
+    "This will permanently delete all your mood entries. This action cannot be undone." : {
+
+    },
+    "Time Period" : {
+
+    },
+    "Try OLMoE at the Ai2 Playground" : {
+
+    },
+    "Version" : {
+
+    },
+    "Welcome" : {
+
+    },
+    "Welcome chat message" : {
+      "comment" : "Default chat bubble when conversation is empty",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello! I’m OLMoE, a fully open, state-of-the-art language model running locally on your device."
+          }
+        }
+      }
+    },
+    "Welcome to OLMoE" : {
+
+    },
+    "Would you like to add a note about how you're feeling?" : {
+
+    },
+    "You're feeling %@ today" : {
+
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# AWS SAM
+.aws-sam/
+
+# Environment
+.env
+.env.json
+.venv/
+
+# IDEs
+.vscode/*
+!.vscode/cspell.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+.idea/
+
+# OS
+.DS_Store
+
+# Xcode
+build/
+
+# user data in xcode
+*.xcuserstate
+
+# debugger data in xcode
+*.xcsessions
+
+# ignore secrets
+*.xcconfig
+!*.example.xcconfig
+!project-defaults.xcconfig
+
+OLMoE.swift.xcodeproj/project.xcworkspace/xcuserdata/
+OLMoE.swift.xcodeproj/xcuserdata
+
+# Cursor
+.cursorrules
+
+# Misc
+no_commit/
