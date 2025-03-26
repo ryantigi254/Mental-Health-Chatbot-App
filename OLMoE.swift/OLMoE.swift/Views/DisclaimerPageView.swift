@@ -265,26 +265,85 @@ struct DisclaimerPage: View {
 =======
 
     public var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                if !title.isEmpty {
-                    Text(title)
-                        .font(.title())
-                        .multilineTextAlignment(.center)
-                }
+        VStack(spacing: 0) {
+            // Welcome header (always visible)
+            VStack(spacing: 16) {
+                Image("Ai2Icon")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 80)
+                
+                Text("Welcome to OLMoE")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                
+                Text("Please accept the terms to continue")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 8)
+                
+                Divider()
+            }
+            .padding([.horizontal, .top], 24)
+            
+            // Scrollable disclaimer content
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 20) {
+                        if !title.isEmpty {
+                            Text(title)
+                                .font(.title())
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.center)
+                                .padding(.top, 24)
+                        }
 
-                if !message.isEmpty {
-                    Text(.init(message))
-                        .font(.body())
-                        .multilineTextAlignment(.leading)
-                }
+                        if !message.isEmpty {
+                            Text(.init(message))
+                                .font(.body())
+                                .multilineTextAlignment(.leading)
+                        }
 
-                VStack(alignment: .leading, spacing: 20) {
-                    ForEach(titleText) { t in
-                        HeaderTextPairView(header: t.header, text: t.text)
+                        VStack(alignment: .leading, spacing: 20) {
+                            ForEach(titleText) { t in
+                                HeaderTextPairView(header: t.header, text: t.text)
+                            }
+                        }
+                        
+                        // Invisible marker at the bottom
+                        Color.clear
+                            .frame(height: 1)
+                            .id("bottom")
                     }
+                    .padding([.horizontal], 24)
+                    .padding(.bottom, 100) // Add space at bottom for buttons
+                    .background(GeometryReader { geo in
+                        Color.clear.preference(
+                            key: ViewHeightKey.self, 
+                            value: geo.frame(in: .named("scrollView")).size.height
+                        )
+                    })
                 }
-
+                .background(GeometryReader { geo in
+                    Color.clear.onAppear {
+                        scrollViewHeight = geo.size.height
+                    }
+                })
+                .coordinateSpace(name: "scrollView")
+                .onPreferenceChange(ViewHeightKey.self) { contentHeight in
+                    scrollContentHeight = contentHeight
+                }
+                .onScrollPositionChange { offset in
+                    scrollOffset = offset.y
+                    // Check if scrolled to bottom (with a small margin)
+                    hasScrolledToBottom = (scrollOffset + scrollViewHeight) >= (scrollContentHeight - 50)
+                }
+            }
+            
+            // Fixed buttons at bottom
+            VStack {
                 HStack(spacing: 12) {
                     if let cancel = cancel {
                         Button(cancel.text) {
@@ -297,6 +356,16 @@ struct DisclaimerPage: View {
                         confirm.onTap()
                     }
                     .buttonStyle(.PrimaryButton)
+                    .opacity(hasScrolledToBottom ? 1.0 : 0.5)
+                    .disabled(!hasScrolledToBottom)
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 16)
+                
+                if !hasScrolledToBottom {
+                    Text("Please scroll to read the full terms")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
                 }
             }
             .padding([.horizontal], 12)
