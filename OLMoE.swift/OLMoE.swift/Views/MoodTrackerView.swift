@@ -1,5 +1,6 @@
 import SwiftUI
 import Charts
+import CoreData
 
 // Mood data model
 struct MoodEntry: Identifiable, Codable {
@@ -127,7 +128,6 @@ class MoodDataManager: ObservableObject {
 }
 
 struct MoodTrackerView: View {
-    @StateObject private var dataManager = MoodDataManager()
     @State private var selectedMood: MoodType?
     @State private var showingMetrics = false
     @State private var selectedPeriod: TimePeriod = .week
@@ -189,9 +189,35 @@ struct MoodTrackerView: View {
                     .buttonStyle(PlainButtonStyle())
                     .contentShape(Circle())
                 }
+                .padding(.horizontal, 30)
+            } else {
+                Text("How are you feeling today?")
+                    .font(.system(size: 32, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 40)
+                
+                // Display mood options in a horizontal row
+                HStack(spacing: 15) {
+                    ForEach(MoodType.allCases, id: \.self) { mood in
+                        Button(action: {
+                            selectedMood = mood
+                            showEntryView = true
+                        }) {
+                            Text(mood.rawValue)
+                                .font(.system(size: 40))
+                                .frame(width: 70, height: 70)
+                                .background(
+                                    Circle()
+                                        .fill(Color.black.opacity(0.03))
+                                )
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .contentShape(Circle())
+                    }
+                }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
             }
-            .padding(.horizontal)
-            .frame(maxWidth: .infinity)
             
             Spacer()
             Spacer()
@@ -231,7 +257,7 @@ struct MoodTrackerView: View {
             HStack(spacing: 15) {
                 Button(action: {
                     if let mood = selectedMood {
-                        dataManager.saveMood(mood, note: moodNote.isEmpty ? nil : moodNote)
+                        moodDatabase.saveMood(mood, note: moodNote.isEmpty ? nil : moodNote)
                         showingMetrics = true
                     }
                 }) {
@@ -333,13 +359,13 @@ struct MoodTrackerView: View {
     
     // Chart showing mood over time
     private var moodChart: some View {
-        let entries = dataManager.getMoodEntries(for: selectedPeriod)
+        let entries = moodDatabase.getMoodEntries(for: selectedPeriod)
         
         return Chart {
             ForEach(entries) { entry in
                 PointMark(
-                    x: .value("Date", entry.date),
-                    y: .value("Mood", entry.mood.value)
+                    x: .value("Date", entry.date ?? Date()),
+                    y: .value("Mood", Int(entry.moodValue))
                 )
                 .foregroundStyle(Color.blue)
                 .symbolSize(CGSize(width: 15, height: 15))
@@ -348,8 +374,8 @@ struct MoodTrackerView: View {
             if !entries.isEmpty {
                 ForEach(entries) { entry in
                     LineMark(
-                        x: .value("Date", entry.date),
-                        y: .value("Mood", entry.mood.value)
+                        x: .value("Date", entry.date ?? Date()),
+                        y: .value("Mood", Int(entry.moodValue))
                     )
                     .foregroundStyle(Color.blue.opacity(0.5))
                     .lineStyle(StrokeStyle(lineWidth: 2, dash: [5, 5]))
@@ -375,9 +401,11 @@ struct MoodTrackerView: View {
     
     // Mood distribution visualization
     private var moodDistribution: some View {
-        let entries = dataManager.getMoodEntries(for: selectedPeriod)
-        let moodCounts = Dictionary(grouping: entries, by: { $0.mood })
-            .mapValues { $0.count }
+        let entries = moodDatabase.getMoodEntries(for: selectedPeriod)
+        let moodCounts = Dictionary(grouping: entries) { entry -> MoodType? in
+            guard let emoji = entry.moodEmoji else { return nil }
+            return MoodType.allCases.first { $0.rawValue == emoji }
+        }.mapValues { $0.count }
         
         return VStack(alignment: .leading, spacing: 15) {
             Text("Mood Distribution")
@@ -400,7 +428,36 @@ struct MoodTrackerView: View {
                 .padding(.vertical, 5)
             }
             
-            // Recent Notes section removed until database implementation
+            if !entries.isEmpty {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Recent Notes")
+                        .font(.headline)
+                        .padding(.top, 20)
+                        .padding(.bottom, 5)
+                    
+                    ForEach(entries.prefix(3)) { entry in
+                        if let note = entry.note, !note.isEmpty, let date = entry.date {
+                            VStack(alignment: .leading, spacing: 5) {
+                                HStack {
+                                    Text(entry.moodEmoji ?? "")
+                                    Text(formatDate(date))
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                
+                                Text(note)
+                                    .font(.body)
+                                    .padding(.leading, 5)
+                            }
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(8)
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -415,4 +472,6 @@ struct MoodTrackerView: View {
 
 #Preview {
     MoodTrackerView()
+        .environmentObject(MoodDatabaseManager.preview)
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 } 
