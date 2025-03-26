@@ -100,16 +100,40 @@
     "⚠️ Running on AI2's servers - not on your device" : {
 
     },
+    "1.0.0" : {
+
+    },
     "5-4-3-2-1 Grounding" : {
 
     },
     "5-4-3-2-1 Grounding Technique" : {
 
     },
+    "About" : {
+
+    },
+    "Add Content" : {
+
+    },
     "allenai.org" : {
 
     },
-    "Back" : {
+    "API Key" : {
+
+    },
+    "API Key is currently set" : {
+
+    },
+    "API Key Settings" : {
+
+    },
+    "API Settings" : {
+
+    },
+    "Appearance" : {
+
+    },
+    "Attach Photos" : {
 
     },
     "Breathing Exercises" : {
@@ -236,10 +260,16 @@
     "However, you can try using OLMoE at the Ai2 Playground. This option does not download the model file to your device, but instead submits user input to a hosted version of OLMoE to remotely generate responses." : {
 
     },
+    "Light Mode" : {
+
+    },
     "Loading model..." : {
 
     },
     "Mental Health Support" : {
+
+    },
+    "Message OLMoE" : {
 
     },
     "Model is ready to use!" : {

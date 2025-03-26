@@ -370,17 +370,100 @@ struct PHPickerRepresentable: UIViewControllerRepresentable {
             .padding(.trailing, 4)
 
         }
-        .padding([.leading, .trailing], 8)
-        .frame(maxWidth: .infinity)
-        .frame(minHeight: UIDevice.current.userInterfaceIdiom == .pad ? 80 : 40)
-        .background(
-            RoundedRectangle(cornerRadius: 30)
-                .fill(Color("Surface"))
-                .foregroundStyle(.thinMaterial)
-        )
     }
 }
 >>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
+
+#if os(iOS)
+// Helper struct for displaying UIImagePickerController in SwiftUI
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var selectedImages: [UIImage]
+    @Environment(\.presentationMode) var presentationMode
+    var sourceType: UIImagePickerController.SourceType
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        picker.sourceType = sourceType
+        picker.allowsEditing = false
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+        // Not needed
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: ImagePicker
+        
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                parent.selectedImages.append(originalImage)
+            }
+            
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+    }
+}
+
+// PHPicker for multiple photo selection
+struct PHPickerRepresentable: UIViewControllerRepresentable {
+    @Binding var selectedImages: [UIImage]
+    @Environment(\.presentationMode) var presentationMode
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<PHPickerRepresentable>) -> PHPickerViewController {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 0 // 0 means no limit
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = context.coordinator
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: UIViewControllerRepresentableContext<PHPickerRepresentable>) {
+        // Not needed
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        let parent: PHPickerRepresentable
+        
+        init(_ parent: PHPickerRepresentable) {
+            self.parent = parent
+        }
+        
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            parent.presentationMode.wrappedValue.dismiss()
+            
+            for result in results {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async {
+                            self.parent.selectedImages.append(image)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+#endif
 
 #Preview {
     @FocusState var isTextEditorFocused: Bool

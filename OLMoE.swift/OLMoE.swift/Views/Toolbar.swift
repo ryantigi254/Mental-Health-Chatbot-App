@@ -25,7 +25,8 @@ struct AppToolbar<Content: View>: ToolbarContent {
     let leadingContent: Content
 
     init(
-        @ViewBuilder leadingContent: () -> Content = { EmptyView() }
+        @ViewBuilder leadingContent: () -> Leading = { EmptyView() },
+        @ViewBuilder trailingContent: () -> Trailing = { EmptyView() }
     ) {
         self.leadingContent = leadingContent()
 >>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
