@@ -1,6 +1,7 @@
 import SwiftUI
 import Foundation
 
+<<<<<<< HEAD
 // Embed ThemeManager directly in this file to avoid import issues
 class ThemeManager: ObservableObject {
     @Published var isDarkMode: Bool {
@@ -39,6 +40,18 @@ struct OLMoE_swiftApp: App {
                 .environment(\.font, .manrope())
                 .preferredColorScheme(themeManager.colorScheme)
                 .environmentObject(themeManager)
+=======
+@main
+struct OLMoE_swiftApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environment(\.font, .manrope())
+                .environment(\.colorScheme, .dark)
+                .preferredColorScheme(.dark)
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
         }
     }
 }

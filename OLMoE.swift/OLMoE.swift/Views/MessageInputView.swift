@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+<<<<<<< HEAD
 import PhotosUI
 
 #if os(iOS)
@@ -17,6 +18,8 @@ import UIKit
 class SimpleTheme {
     var isDarkMode: Bool = false
 }
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
 
 struct MessageInputView: View {
     @Binding var input: String
@@ -27,6 +30,7 @@ struct MessageInputView: View {
     let hasValidInput: Bool
     let respond: () -> Void
     let stop: () -> Void
+<<<<<<< HEAD
     
     // Create a simple theme instead of using ThemeManager
     @Environment(\.colorScheme) private var colorScheme
@@ -323,6 +327,60 @@ struct PHPickerRepresentable: UIViewControllerRepresentable {
     }
 }
 #endif
+=======
+
+    var body: some View {
+        HStack(alignment: .top) {
+            TextField("Empty Input Prompt", text: $input, axis: .vertical)
+                .scrollContentBackground(.hidden)
+                .multilineTextAlignment(.leading)
+                .lineLimit(10)
+                .foregroundColor(Color("TextColor"))
+                .font(.body())
+                .focused($isTextEditorFocused)
+                .onChange(of: isTextEditorFocused) { _, isFocused in
+                    if !isFocused {
+                        hideKeyboard()
+                    }
+                }
+                .disabled(isInputDisabled)
+                .opacity(isInputDisabled ? 0.6 : 1)
+                .padding(12)
+
+            ZStack {
+                if isGenerating && !stopSubmitted {
+                    Button(action: stop) {
+                        Image("StopIcon")
+                    }
+                } else {
+                    Button(action: respond) {
+                        Image("SendIcon")
+                    }
+                    .disabled(!hasValidInput)
+                    .opacity(hasValidInput ? 1 : 0.5)
+
+                }
+            }
+            .onTapGesture {
+                isTextEditorFocused = false
+            }
+            .font(.system(size: 24))
+            .frame(width: 40, height: 40)
+            .padding(.top, 4)
+            .padding(.trailing, 4)
+
+        }
+        .padding([.leading, .trailing], 8)
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: UIDevice.current.userInterfaceIdiom == .pad ? 80 : 40)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(Color("Surface"))
+                .foregroundStyle(.thinMaterial)
+        )
+    }
+}
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
 
 #Preview {
     @FocusState var isTextEditorFocused: Bool

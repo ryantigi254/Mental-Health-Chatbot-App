@@ -118,6 +118,7 @@ struct DisclaimerPage: View {
 
     /// The configuration for the optional cancel button.
     let cancel: PageButton?
+<<<<<<< HEAD
     
     // Track scroll position to enable the confirm button only when scrolled to bottom
     @State private var hasScrolledToBottom = false
@@ -261,10 +262,51 @@ struct DisclaimerPage: View {
                 // Require scrolling all the way to the bottom (with a smaller margin)
                 hasScrolledToBottom = (scrollOffset + scrollViewHeight) >= (scrollContentHeight - 20)
             }
+=======
+
+    public var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                if !title.isEmpty {
+                    Text(title)
+                        .font(.title())
+                        .multilineTextAlignment(.center)
+                }
+
+                if !message.isEmpty {
+                    Text(.init(message))
+                        .font(.body())
+                        .multilineTextAlignment(.leading)
+                }
+
+                VStack(alignment: .leading, spacing: 20) {
+                    ForEach(titleText) { t in
+                        HeaderTextPairView(header: t.header, text: t.text)
+                    }
+                }
+
+                HStack(spacing: 12) {
+                    if let cancel = cancel {
+                        Button(cancel.text) {
+                            cancel.onTap()
+                        }
+                        .buttonStyle(.SecondaryButton)
+                    }
+
+                    Button(confirm.text) {
+                        confirm.onTap()
+                    }
+                    .buttonStyle(.PrimaryButton)
+                }
+            }
+            .padding([.horizontal], 12)
+            .padding([.vertical], 24)
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
         }
     }
 }
 
+<<<<<<< HEAD
 // Helper to track scroll position
 struct ScrollOffsetPreferenceKey: PreferenceKey {
     static var defaultValue: CGPoint = .zero
@@ -321,6 +363,8 @@ struct DisclaimerPageView: View {
     }
 }
 
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
 #Preview("DisclaimerPage") {
     DisclaimerPage(
         allowOutsideTapDismiss: false,

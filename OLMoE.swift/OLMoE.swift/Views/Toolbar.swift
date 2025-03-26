@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+<<<<<<< HEAD
 struct AppToolbar<Leading: View, Trailing: View>: ToolbarContent {
     let leadingContent: Leading
     let trailingContent: Trailing
@@ -18,6 +19,16 @@ struct AppToolbar<Leading: View, Trailing: View>: ToolbarContent {
     ) {
         self.leadingContent = leadingContent()
         self.trailingContent = trailingContent()
+=======
+struct AppToolbar<Content: View>: ToolbarContent {
+
+    let leadingContent: Content
+
+    init(
+        @ViewBuilder leadingContent: () -> Content = { EmptyView() }
+    ) {
+        self.leadingContent = leadingContent()
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     }
 
     var body: some ToolbarContent {
@@ -31,10 +42,13 @@ struct AppToolbar<Leading: View, Trailing: View>: ToolbarContent {
                 .scaledToFit()
                 .frame(width: 60, height: 60)  // Adjust size as needed
         }
+<<<<<<< HEAD
         
         ToolbarItemGroup(placement: .navigationBarTrailing) {
             self.trailingContent
         }
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     }
 }
 

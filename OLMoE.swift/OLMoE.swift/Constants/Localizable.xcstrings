@@ -1,9 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+<<<<<<< HEAD
     "" : {
 
     },
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "(The model requires ~6 GB and this device has: %@ GB available.)" : {
 
     },
@@ -17,6 +20,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "%lld" : {
 
     },
@@ -89,15 +93,32 @@
     "Date" : {
 
     },
+=======
+    "%lld%%" : {
+
+    },
+    "⚠️ Running on AI2's servers - not on your device" : {
+
+    },
+    "allenai.org" : {
+
+    },
+    "Cancel" : {
+
+    },
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "Delete" : {
 
     },
     "Delete history?" : {
 
     },
+<<<<<<< HEAD
     "Done" : {
 
     },
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "Download Model" : {
 
     },
@@ -115,12 +136,15 @@
     "Downloading..." : {
 
     },
+<<<<<<< HEAD
     "Emergency Services" : {
 
     },
     "Emergency Services (999)" : {
 
     },
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "Empty Input Prompt" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -132,6 +156,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "Enter API Key" : {
 
     },
@@ -180,24 +205,39 @@
     "NHS Urgent Mental Health" : {
 
     },
+=======
+    "Flush Model" : {
+
+    },
+    "However, you can try using OLMoE at the Ai2 Playground. This option does not download the model file to your device, but instead submits user input to a hosted version of OLMoE to remotely generate responses." : {
+
+    },
+    "Model is ready to use!" : {
+
+    },
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "OLMoE can run locally on iPhone 15 Pro/Max, iPhone 16 models, iPad Pro 4th Gen and newer, or iPad Air 5th Gen and newer." : {
 
     },
     "On-Device OLMoE Not Available" : {
 
     },
+<<<<<<< HEAD
     "Please accept the terms to continue" : {
 
     },
     "Please scroll to read the full terms" : {
 
     },
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "Proceed Anyway" : {
 
     },
     "Proceed With Mocked Model" : {
 
     },
+<<<<<<< HEAD
     "Reset" : {
 
     },
@@ -231,12 +271,18 @@
     "Take Photo" : {
 
     },
+=======
+    "Start Download" : {
+
+    },
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "The model requires 4.21GB of storage space. Would you like to proceed with the download?" : {
 
     },
     "This device does not have the 8GB physical RAM required to run OLMoE locally." : {
 
     },
+<<<<<<< HEAD
     "This will permanently delete all your mood entries. This action cannot be undone." : {
 
     },
@@ -249,6 +295,11 @@
     "Version" : {
 
     },
+=======
+    "Try OLMoE at the Ai2 Playground" : {
+
+    },
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     "Welcome" : {
 
     },
@@ -262,6 +313,7 @@
           }
         }
       }
+<<<<<<< HEAD
     },
     "Welcome to OLMoE" : {
 
@@ -271,6 +323,8 @@
     },
     "You're feeling %@ today" : {
 
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     }
   },
   "version" : "1.0"

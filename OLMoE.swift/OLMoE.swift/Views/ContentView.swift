@@ -13,16 +13,35 @@ class Bot: LLM {
     static let modelFileURL = URL.modelsDirectory.appendingPathComponent(AppConstants.Model.filename).appendingPathExtension("gguf")
 
     convenience init() {
+<<<<<<< HEAD
+=======
+        let deviceName = UIDevice.current.model
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        let currentDate = dateFormatter.string(from: Date())
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        let currentTime = timeFormatter.string(from: Date())
+
+        let systemPrompt = "You are OLMoE (Open Language Mixture of Expert), a small language model running on \(deviceName). You have been developed at the Allen Institute for AI (Ai2) in Seattle, WA, USA. Today is \(currentDate). The time is \(currentTime)."
+
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
         guard FileManager.default.fileExists(atPath: Bot.modelFileURL.path) else {
             fatalError("Model file not found. Please download it first.")
         }
 
+<<<<<<< HEAD
         self.init(from: Bot.modelFileURL, template: .OLMoE())
         
         // Ensure the bot starts with a clean slate
         Task { @MainActor in
             await self.clearHistory()
         }
+=======
+//        self.init(from: Bot.modelFileURL, template: .OLMoE(systemPrompt))
+        self.init(from: Bot.modelFileURL, template: .OLMoE())
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     }
 }
 
@@ -43,6 +62,7 @@ struct BotView: View {
 
     // Add new state for text sharing
     @State private var showTextShareSheet = false
+<<<<<<< HEAD
     
     // Add state for suggested prompts
     @State private var suggestedPrompts: [String] = [
@@ -55,6 +75,8 @@ struct BotView: View {
     
     // Track whether suggestions should be shown
     @State private var showSuggestions = true
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
 
     private var hasValidInput: Bool {
         !input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -75,7 +97,10 @@ struct BotView: View {
     init(_ bot: Bot, disclaimerHandlers: DisclaimerHandlers) {
         _bot = StateObject(wrappedValue: bot)
         self.disclaimerHandlers = disclaimerHandlers
+<<<<<<< HEAD
         // Initialize suggested prompts will be handled in onAppear
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     }
 
     func shouldShowScrollButton() -> Bool {
@@ -97,12 +122,16 @@ struct BotView: View {
                 bot.setOutput(to: "")
                 isGenerating = false
                 stopSubmitted = false
+<<<<<<< HEAD
                 // Update suggested prompts based on the conversation
                 updateSuggestedPrompts()
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
             }
         }
     }
 
+<<<<<<< HEAD
     // Method to update suggested prompts based on conversation context
     private func updateSuggestedPrompts() {
         // Don't show suggestions if the conversation is empty
@@ -173,6 +202,11 @@ struct BotView: View {
         Task {
             await bot.stop()
         }
+=======
+    func stop() {
+        self.stopSubmitted = true
+        bot.stop()
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     }
 
     func deleteHistory() {
@@ -333,6 +367,7 @@ struct BotView: View {
     }
 
     @ViewBuilder
+<<<<<<< HEAD
     func suggestionsToggleButton() -> some View {
         Button(action: {
             withAnimation {
@@ -345,6 +380,8 @@ struct BotView: View {
     }
 
     @ViewBuilder
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     func scrollToBottomButton() -> some View {
         VStack {
             Spacer()
@@ -374,10 +411,13 @@ struct BotView: View {
         GeometryReader { geometry in
             contentView(in: geometry)
         }
+<<<<<<< HEAD
         .onAppear {
             // Initialize suggested prompts
             updateSuggestedPrompts()
         }
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     }
 
     private func contentView(in geometry: GeometryProxy) -> some View {
@@ -396,7 +436,11 @@ struct BotView: View {
                                 isScrolledToBottom: $isScrolledToBottom,
                                 stopSubmitted: $stopSubmitted
                             )
+<<<<<<< HEAD
                                 .onChange(of: scrollToBottom) { newValue in
+=======
+                                .onChange(of: scrollToBottom) { _, newValue in
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
                                     if newValue {
                                         withAnimation {
                                             proxy.scrollTo(ChatView.BottomID, anchor: .bottom)
@@ -419,11 +463,14 @@ struct BotView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: min(geometry.size.width, geometry.size.height) * 0.18)
+<<<<<<< HEAD
                                 .colorMultiply(Color.accentColor)
                                 .saturation(1.3)
                                 .brightness(0.1)
                                 .contrast(1.2)
                                 .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
                             Spacer()
                         }
                     }
@@ -433,6 +480,7 @@ struct BotView: View {
                 Spacer()
 
                 if (isChatEmpty) {
+<<<<<<< HEAD
                     BotChatBubble(
                         text: String(localized: "Welcome chat message", comment: "Default chat bubble when conversation is empty"), 
                         maxWidth: geometry.size.width,
@@ -449,6 +497,9 @@ struct BotView: View {
                     }
                     .transition(.opacity)
                     .padding(.bottom, 8)
+=======
+                    BotChatBubble(text: String(localized: "Welcome chat message", comment: "Default chat bubble when conversation is empty"), maxWidth: geometry.size.width)
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
                 }
 
                 MessageInputView(
@@ -478,7 +529,10 @@ struct BotView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
+<<<<<<< HEAD
                 suggestionsToggleButton()
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
                 shareButton()
                 trashButton()
             }
@@ -529,9 +583,12 @@ struct ContentView: View {
     /// Logger for tracking events in the ContentView.
     let logger = Logger(subsystem: "com.allenai.olmoe", category: "ContentView")
 
+<<<<<<< HEAD
     /// A flag indicating whether to show the API settings.
     @State private var showApiSettings = false
 
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     public var body: some View {
         ZStack {
             NavigationStack {
@@ -546,18 +603,31 @@ struct ContentView: View {
                         )
                     } else if let bot = bot {
                         BotView(bot, disclaimerHandlers: DisclaimerHandlers(
+<<<<<<< HEAD
                             setActiveDisclaimer: { disclaimerState.activeDisclaimer = $0 },
                             setAllowOutsideTapDismiss: { disclaimerState.allowOutsideTapDismiss = $0 },
                             setCancelAction: { disclaimerState.onCancel = $0 },
                             setConfirmAction: { disclaimerState.onConfirm = $0 },
                             setShowDisclaimerPage: { disclaimerState.showDisclaimerPage = $0 }
+=======
+                            setActiveDisclaimer: { self.disclaimerState.activeDisclaimer = $0 },
+                            setAllowOutsideTapDismiss: { self.disclaimerState.allowOutsideTapDismiss = $0 },
+                            setCancelAction: { self.disclaimerState.onCancel = $0 },
+                            setConfirmAction: { self.disclaimerState.onConfirm = $0 },
+                            setShowDisclaimerPage: { self.disclaimerState.showDisclaimerPage = $0 }
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
                         ))
                     } else {
                         ModelDownloadView()
                     }
                 }
+<<<<<<< HEAD
                 .onChange(of: downloadManager.isModelReady) { value in
                     if value && bot == nil {
+=======
+                .onChange(of: downloadManager.isModelReady) { newValue in
+                    if newValue && bot == nil {
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
                         initializeBot()
                     }
                 }
@@ -566,11 +636,14 @@ struct ContentView: View {
                     AppToolbar(
                         leadingContent: {
                             InfoButton(action: { showInfoPage = true })
+<<<<<<< HEAD
                         },
                         trailingContent: {
                             Button("API Settings") {
                                 showApiSettings = true
                             }
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
                         }
                     )
                 }
@@ -610,9 +683,12 @@ struct ContentView: View {
                 }
                 .interactiveDismissDisabled(!disclaimerState.allowOutsideTapDismiss)
             }
+<<<<<<< HEAD
             .sheet(isPresented: $showApiSettings) {
                 ApiKeySettingsView()
             }
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
         }
     }
 

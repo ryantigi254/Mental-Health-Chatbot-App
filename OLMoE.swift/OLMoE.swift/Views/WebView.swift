@@ -15,7 +15,10 @@ struct WebView: UIViewRepresentable {
         uiView.load(request)
     }
 
+<<<<<<< HEAD
     @preconcurrency
+=======
+>>>>>>> 800cefc0 (Initial commit- Research was already conducted for more info refer to the research structure file)
     class Coordinator: NSObject, WKNavigationDelegate {
         var parent: WebView
 
