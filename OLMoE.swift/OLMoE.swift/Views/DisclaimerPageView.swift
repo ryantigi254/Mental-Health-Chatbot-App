@@ -294,15 +294,15 @@ struct DisclaimerPage: View {
                     VStack(spacing: 20) {
                         if !title.isEmpty {
                             Text(title)
-                                .font(.title())
+                                .font(.title)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
-                                .padding(.top, 24)
+                                .padding(.top, 8)
                         }
 
                         if !message.isEmpty {
                             Text(.init(message))
-                                .font(.body())
+                                .font(.body)
                                 .multilineTextAlignment(.leading)
                         }
 
@@ -312,61 +312,71 @@ struct DisclaimerPage: View {
                             }
                         }
                         
-                        // Invisible marker at the bottom
+                        // Add space before the button
+                        Spacer()
+                            .frame(height: 50)
+                        
+                        // Now add the buttons as part of the scrollable content
+                        VStack {
+                            HStack(spacing: 12) {
+                                if let cancel = cancel {
+                                    Button(cancel.text) {
+                                        cancel.onTap()
+                                    }
+                                    .buttonStyle(.SecondaryButton)
+                                }
+
+                                Button(confirm.text) {
+                                    confirm.onTap()
+                                }
+                                .buttonStyle(.PrimaryButton)
+                                .opacity(hasScrolledToBottom ? 1.0 : 0.5)
+                                .disabled(!hasScrolledToBottom)
+                            }
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 16)
+                            
+                            if !hasScrolledToBottom {
+                                Text("Please scroll to read the full terms")
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                                    .padding(.bottom, 8)
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            Rectangle()
+                                .fill(Color(.systemBackground))
+                        )
+                        
+                        // Invisible marker at the bottom for scrolling detection
                         Color.clear
                             .frame(height: 1)
                             .id("bottom")
                     }
-                    .padding([.horizontal], 24)
-                    .padding(.bottom, 100) // Add space at bottom for buttons
-                    .background(GeometryReader { geo in
-                        Color.clear.preference(
-                            key: ViewHeightKey.self, 
-                            value: geo.frame(in: .named("scrollView")).size.height
-                        )
-                    })
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 50) // Add some space at the bottom after the button
                 }
                 .background(GeometryReader { geo in
-                    Color.clear.onAppear {
-                        scrollViewHeight = geo.size.height
-                    }
+                    Color.clear.preference(
+                        key: ViewHeightKey.self, 
+                        value: geo.frame(in: .named("scrollView")).size.height
+                    )
                 })
-                .coordinateSpace(name: "scrollView")
-                .onPreferenceChange(ViewHeightKey.self) { contentHeight in
-                    scrollContentHeight = contentHeight
-                }
-                .onScrollPositionChange { offset in
-                    scrollOffset = offset.y
-                    // Check if scrolled to bottom (with a small margin)
-                    hasScrolledToBottom = (scrollOffset + scrollViewHeight) >= (scrollContentHeight - 50)
-                }
             }
-            
-            // Fixed buttons at bottom
-            VStack {
-                HStack(spacing: 12) {
-                    if let cancel = cancel {
-                        Button(cancel.text) {
-                            cancel.onTap()
-                        }
-                        .buttonStyle(.SecondaryButton)
-                    }
-
-                    Button(confirm.text) {
-                        confirm.onTap()
-                    }
-                    .buttonStyle(.PrimaryButton)
-                    .opacity(hasScrolledToBottom ? 1.0 : 0.5)
-                    .disabled(!hasScrolledToBottom)
+            .background(GeometryReader { geo in
+                Color.clear.onAppear {
+                    scrollViewHeight = geo.size.height
                 }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 16)
-                
-                if !hasScrolledToBottom {
-                    Text("Please scroll to read the full terms")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                }
+            })
+            .coordinateSpace(name: "scrollView")
+            .onPreferenceChange(ViewHeightKey.self) { contentHeight in
+                scrollContentHeight = contentHeight
+            }
+            .onScrollPositionChange { offset in
+                scrollOffset = offset.y
+                // Require scrolling all the way to the bottom (with a smaller margin)
+                hasScrolledToBottom = (scrollOffset + scrollViewHeight) >= (scrollContentHeight - 20)
             }
             .padding([.horizontal], 12)
             .padding([.vertical], 24)
