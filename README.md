@@ -103,7 +103,7 @@ For more details on each license, visit the respective repositories linked above
 ⸻
 
 References (Harvard Style)
-	•	Allen Institute for AI (2023) On-Device AI. [Online]. Available at: https://allenai.org/on-device [Accessed 26 March 2025].
-	•	Allen Institute for AI (2023) OLMoE.swift GitHub Repository. [Online]. Available at: https://github.com/allenai/OLMoE.swift?tab=readme-ov-file [Accessed 26 March 2025].
-	•	ryantigi254 (2025) AI-Mental-Health-Chatbot. [Online]. Available at: https://github.com/ryantigi254/AI-Mental-Health-Chatbot.git [Accessed 26 March 2025].
+•Allen Institute for AI (2023) On-Device AI. [Online]. Available at: https://allenai.org/on-device [Accessed 26 March 2025].
+•Allen Institute for AI (2023) OLMoE.swift GitHub Repository. [Online]. Available at: https://github.com/allenai/OLMoE.swift?tab=readme-ov-file [Accessed 26 March 2025].
+•ryantigi254 (2025) AI-Mental-Health-Chatbot. [Online]. Available at: https://github.com/ryantigi254/AI-Mental-Health-Chatbot.git [Accessed 26 March 2025].
 
